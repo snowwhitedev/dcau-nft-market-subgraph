@@ -1,0 +1,30 @@
+specVersion: 0.0.2
+description: DCAU is a decentralized protocol for NFT marketplace.
+repository: https://github.com/snowwhitedev/dcau-subgraph
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: DCAUNFTMarket
+    network: rinkeby
+    source:
+      address: '0x698E6f9b0F1f208b37F4dB2B1e9c908c2a0A3E8E'
+      abi: DCAUNFTMarket
+      startBlock: 11072989
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mappings/dcauNFTMarket.ts
+      entities:
+        - MarketStock
+      abis:
+        - name: DCAUNFTMarket
+          file: ./abis/dcauNFTMarket.json
+      eventHandlers:
+        - event: TokenOnSale(address,address,uint256,uint256,uint256,uint256)
+          handler: handleTokenOnSale
+        - event: TokenRemovedFromSale(uint256)
+          handler: handleTokenRemovedFromSale
+        - event: TokenSold(address,uint256)
+          handler: handleTokenSold

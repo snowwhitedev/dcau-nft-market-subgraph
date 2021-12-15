@@ -1,0 +1,12 @@
+type MarketStock @entity {
+  # sale index
+  id: ID!
+  saleIndex: BigInt!
+  seller: String!
+  nftContract: String!
+  nftId: BigInt!
+  price: BigDecimal!
+  category: BigInt!
+  buyer: String!
+  isOnSale: Boolean!
+}
